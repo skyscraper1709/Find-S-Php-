@@ -1,6 +1,7 @@
 <?php
 $handle = fopen("inputfile.txt", "r");
-$h = array(0,0,0,0,0);
+$h = array(0,0,0,0,0,0,0);
+$attributes = 6;
 $hypothesisCounter = 0;
 show_hypothesis($h);
 $first = true;
@@ -10,19 +11,19 @@ if ($handle) {
   while (($line = fgets($handle)) !== false) {
     // process the line read.
     $values = explode(",",$line);
-    if($c==1 && $values[5]==1 ){
+    if($c==1 && $values[$attributes]==1 ){
       $h = $values;
       $c++;
       show_hypothesis($h);//show h1
       continue;
     }
-    if($values[5]==-1){
+    if($values[$attributes]==-1){
       show_hypothesis($h);//show skipped h
       continue;
     }
     else{
 
-      for ($i=0; $i<5 ;$i++) {
+      for ($i=0; $i<$attributes ;$i++) {
         if($h[$i] == $values[$i]){
           continue;
         }else {
@@ -33,7 +34,7 @@ if ($handle) {
     show_hypothesis($h);//show h after processing attributes
   }
 
-    fclose($handle);
+  fclose($handle);
 } else {
     echo  "error opening the file.";
 }
