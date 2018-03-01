@@ -11,13 +11,13 @@ if ($handle) {
   while (($line = fgets($handle)) !== false) {
     // process the line read.
     $values = explode(",",$line);
-    if($c==1 && $values[$attributes]==1 ){
+    if($c==1 && $values[$attributes]==-1 ){
       $h = $values;
       $c++;
       show_hypothesis($h);//show h1
       continue;
     }
-    if($values[$attributes]==-1){
+    if($values[$attributes]==1){
       show_hypothesis($h);//show skipped h
       continue;
     }
