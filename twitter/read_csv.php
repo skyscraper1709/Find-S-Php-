@@ -60,8 +60,8 @@ function createUsersData($tweets){
         
         //follower count
         $u_tc [$user_id]['followers'] = $user_tweets[0]['user_followers_count'];
-        $u_tc [$user_id]['following'] = $user_tweets[0]['user_friends_count'];
-        $u_tc [$user_id]['ratio'] = round( $u_tc [$user_id]['followers'] / $u_tc [$user_id]['following'], 3 );
+        $u_tc [$user_id]['following'] = ($user_tweets[0]['user_friends_count']) ? $user_tweets[0]['user_friends_count'] : 0 ;
+        $u_tc [$user_id]['ratio'] = ($u_tc [$user_id]['following']) ? round( $u_tc [$user_id]['followers'] / $u_tc [$user_id]['following'], 3 ) : 0;
         $u_tc [$user_id]['avg_twt_len'] = getUserAverageTweetStats($user_tweets)['length'];
         $u_tc [$user_id]['rts_percent'] = getUserAverageTweetStats($user_tweets)['rts_percent'];
         $u_tc [$user_id]['hashtagsPerTweet'] = getUserAverageTweetStats($user_tweets)['hashtagsPerTweet'];
@@ -102,7 +102,7 @@ function lb(){
 function getDataFromDB(){
     
     global $db;
-    $tweets = $db->select('dataset');
+    $tweets = $db->select('bot_data');
 
     foreach ($tweets as $tweet) {
         // var_dump($tweet);
